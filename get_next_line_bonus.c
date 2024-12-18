@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 14:06:32 by dteruya           #+#    #+#             */
-/*   Updated: 2024/12/18 13:19:38 by dteruya          ###   ########.fr       */
+/*   Created: 2024/12/18 16:19:28 by dteruya           #+#    #+#             */
+/*   Updated: 2024/12/18 16:28:11 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_and_store(char *stored, char *tmp, int fd)
 {
@@ -70,7 +70,7 @@ static char	*update_stored(char *stored)
 
 char	*get_next_line(int fd)
 {
-	static char	*stored;
+	static char	*stored[1024];
 	char		*tmp;
 	char		*line;
 
@@ -79,11 +79,11 @@ char	*get_next_line(int fd)
 	tmp = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (tmp == NULL)
 		return (NULL);
-	stored = read_and_store(stored, tmp, fd);
+	stored[fd] = read_and_store(stored[fd], tmp, fd);
 	free(tmp);
-	if (stored == NULL)
+	if (stored[fd] == NULL)
 		return (NULL);
-	line = extract_line(stored);
-	stored = update_stored(stored);
+	line = extract_line(stored[fd]);
+	stored[fd] = update_stored(stored[fd]);
 	return (line);
 }
