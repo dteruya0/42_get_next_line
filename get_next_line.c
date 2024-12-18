@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 14:06:32 by dteruya           #+#    #+#             */
-/*   Updated: 2024/12/18 12:02:54 by dteruya          ###   ########.fr       */
+/*   Updated: 2024/12/18 12:19:53 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static char	*read_and_store(char *stored, char *tmp, int fd)
 		bytes_read = read(fd, tmp, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			//free(tmp);
 			free(stored);
 			return (NULL);
 		}
